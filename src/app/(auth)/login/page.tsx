@@ -11,6 +11,7 @@ import {
   Input,
   Stack,
   Text,
+  Spinner,
 } from '@chakra-ui/react'
 import { usePioneerContext } from '@/common/provider'
 import { useContext } from 'react'
@@ -20,6 +21,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const router = useRouter()
+
+  useEffect(() => {
+    if (pioneer?.state?.app?.queryKey) {
+      setPassword(pioneer.state.app.queryKey)
+    }
+  }, [pioneer?.state?.app?.queryKey]);
 
   const onStart = async () => {
     console.log('pioneer: ',pioneer)
@@ -78,34 +85,40 @@ export default function LoginPage() {
         boxShadow="xl"
       >
         <Stack align="center" mb={8}>
-          username: {pioneer?.state?.app?.username}
-          <Heading fontSize="3xl">Login</Heading>
+          {pioneer?.state?.app?.username ? (
+              <div>
+                <Text>username: {pioneer.state.app.username}</Text>
+                <form onSubmit={handleSubmit}>
+                  <Stack gap={6}>
+                    <Heading fontSize="3xl">Login</Heading>
+                    <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        size="lg"
+                    />
+                    {error && (
+                        <Text color="red.500" textAlign="center">
+                          {error}
+                        </Text>
+                    )}
+                    <Button
+                        type="submit"
+                        colorScheme="blue"
+                        size="lg"
+                        w="full"
+                    >
+                      Sign in
+                    </Button>
+                  </Stack>
+                </form>
+              </div>
+          ) : (
+            <Spinner size="xl" color="blue.500" />
+          )}
         </Stack>
-        <form onSubmit={handleSubmit}>
-          <Stack gap={6}>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              size="lg"
-            />
-            {error && (
-              <Text color="red.500" textAlign="center">
-                {error}
-              </Text>
-            )}
-            <Button
-              type="submit"
-              colorScheme="blue"
-              size="lg"
-              w="full"
-            >
-              Sign in
-            </Button>
-          </Stack>
-        </form>
       </Box>
     </Flex>
   )
