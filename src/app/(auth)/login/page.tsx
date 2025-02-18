@@ -11,10 +11,8 @@ import {
   Input,
   Stack,
   Text,
-  Spinner,
 } from '@chakra-ui/react'
 import { usePioneerContext } from '@/common/provider'
-import { useContext } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 
 export default function LoginPage() {

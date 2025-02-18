@@ -9,13 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/cli": "^3.8.0",
+    "@chakra-ui/react": "^3.8.0",
     "@coinmasters/pioneer-react": "^0.8.32",
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.14.0",
     "@pioneer-platform/default-mongo": "^8.3.2",
-    "framer-motion": "^10.18.0",
     "jose": "^5.10.0",
     "next": "15.1.7",
     "next-auth": "^4.24.11",

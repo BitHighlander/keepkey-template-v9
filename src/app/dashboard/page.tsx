@@ -57,7 +57,7 @@ export default function Dashboard() {
       <Container maxW="container.xl" py={8}>
         <Box mb={12}>
           <Heading size="xl" mb={2}>Welcome, {session?.user?.name?.split(' ')[0] || 'User'}!</Heading>
-          <Text color="gray.500">Here's what's happening with your account</Text>
+          <Text color="gray.500">Heres whats happening with your account</Text>
         </Box>
 
         <Grid templateColumns="repeat(4, 1fr)" gap={6} mb={12}>
@@ -88,7 +88,7 @@ export default function Dashboard() {
       <Box as="footer" py={6} borderTopWidth="1px">
         <Container maxW="container.xl">
           <Flex justify="space-between" align="center">
-            <Text>© 2024 Your Company. All rights reserved.</Text>
+            <Text>2024 Your Company. All rights reserved.</Text>
             <Flex gap={6}>
               <Button variant="ghost">Privacy Policy</Button>
               <Button variant="ghost">Terms of Service</Button>

@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
-// @ts-ignore
+//@ts-expect-error
 import connection from "@pioneer-platform/default-mongo"
 const usersDB = connection.get('users')
 
