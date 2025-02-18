@@ -2,18 +2,14 @@
 
 import { useSession, signOut } from 'next-auth/react'
 import Image from 'next/image'
-import { Box, Button, Container, Flex, Grid, Heading, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Container, Flex, Grid, Heading, Text } from '@chakra-ui/react'
 import { ColorModeButton } from '@/components/ui/color-mode'
 
 export default function Dashboard() {
   const { data: session } = useSession()
-  
-  const bgColor = useColorModeValue('white', 'gray.800')
-  const textColor = useColorModeValue('gray.800', 'white')
-  const cardBg = useColorModeValue('gray.50', 'gray.700')
 
   return (
-    <Box bg="bg.default" minH="100vh">
+    <Box minH="100vh">
       <Flex justify="flex-end" p={4}>
         <ColorModeButton />
       </Flex>
@@ -29,7 +25,6 @@ export default function Dashboard() {
           />
           <Button
             onClick={() => signOut({ callbackUrl: '/login' })}
-            colorScheme="gray"
             variant="outline"
           >
             Sign Out
@@ -37,52 +32,43 @@ export default function Dashboard() {
         </Flex>
 
         <Box mb={12}>
-          <Heading as="h1" size="xl" mb={2}>Welcome to Dashboard</Heading>
-          <Text color="fg.muted">Logged in as {session?.user?.email}</Text>
+          <Heading size="xl" mb={2}>Welcome to Dashboard</Heading>
+          <Text>Logged in as {session?.user?.email}</Text>
         </Box>
 
         <Grid templateColumns="repeat(4, 1fr)" gap={6} mb={12}>
-          <Box p={6} bg="bg.subtle" borderRadius="lg">
-            <Text color="fg.muted" mb={2}>Total Users</Text>
+          <Box p={6} borderRadius="lg" borderWidth="1px">
+            <Text mb={2}>Total Users</Text>
             <Heading size="lg">1,234</Heading>
           </Box>
-          <Box p={6} bg="bg.subtle" borderRadius="lg">
-            <Text color="fg.muted" mb={2}>Active Sessions</Text>
+          <Box p={6} borderRadius="lg" borderWidth="1px">
+            <Text mb={2}>Active Sessions</Text>
             <Heading size="lg">56</Heading>
           </Box>
-          <Box p={6} bg="bg.subtle" borderRadius="lg">
-            <Text color="fg.muted" mb={2}>Total Revenue</Text>
+          <Box p={6} borderRadius="lg" borderWidth="1px">
+            <Text mb={2}>Total Revenue</Text>
             <Heading size="lg">$45,678</Heading>
           </Box>
-          <Box p={6} bg="bg.subtle" borderRadius="lg">
-            <Text color="fg.muted" mb={2}>Growth</Text>
+          <Box p={6} borderRadius="lg" borderWidth="1px">
+            <Text mb={2}>Growth</Text>
             <Heading size="lg">+12.3%</Heading>
           </Box>
         </Grid>
 
-        <Flex gap={4} mb={12}>
-          <Button colorScheme="blue" leftIcon={
-            <Image
-              src="/globe.svg"
-              alt="Action icon"
-              width={20}
-              height={20}
-            />
-          }>
-            New Project
-          </Button>
+        <Flex gap={4}>
+          <Button>New Project</Button>
           <Button variant="outline">View Reports</Button>
         </Flex>
       </Container>
 
-      <Box as="footer" bg="bg.subtle" py={6}>
+      <Box as="footer" py={6} borderTopWidth="1px">
         <Container maxW="container.xl">
           <Flex justify="space-between" align="center">
-            <Text color="fg.muted">© 2024 Your Company. All rights reserved.</Text>
+            <Text>© 2024 Your Company. All rights reserved.</Text>
             <Flex gap={6}>
-              <Button variant="link" color="fg.muted">Privacy Policy</Button>
-              <Button variant="link" color="fg.muted">Terms of Service</Button>
-              <Button variant="link" color="fg.muted">Contact Support</Button>
+              <Button variant="ghost">Privacy Policy</Button>
+              <Button variant="ghost">Terms of Service</Button>
+              <Button variant="ghost">Contact Support</Button>
             </Flex>
           </Flex>
         </Container>
