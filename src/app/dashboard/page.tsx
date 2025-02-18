@@ -2,7 +2,15 @@
 
 import { useSession, signOut } from 'next-auth/react'
 import Image from 'next/image'
-import { Box, Button, Container, Flex, Grid, Heading, Text } from '@chakra-ui/react'
+import { 
+  Box, 
+  Button, 
+  Container, 
+  Flex, 
+  Grid, 
+  Heading, 
+  Text,
+} from '@chakra-ui/react'
 import { ColorModeButton } from '@/components/ui/color-mode'
 
 export default function Dashboard() {
@@ -10,30 +18,46 @@ export default function Dashboard() {
 
   return (
     <Box minH="100vh">
-      <Flex justify="flex-end" p={4}>
-        <ColorModeButton />
+      <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
+        <Image
+          src="/next.svg"
+          alt="Next.js logo"
+          width={180}
+          height={38}
+          priority
+        />
+        <Flex align="center" gap={4}>
+          <ColorModeButton />
+          <Flex align="center" gap={3}>
+            <Box textAlign="right">
+              <Text fontWeight="medium">{session?.user?.name}</Text>
+              <Text fontSize="sm" color="gray.500">{session?.user?.email}</Text>
+            </Box>
+            {session?.user?.image && (
+              <div style={{ position: 'relative', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
+                <Image
+                  src={session.user.image}
+                  alt={session.user.name || 'User avatar'}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+            )}
+            <Button
+              onClick={() => signOut({ callbackUrl: '/login' })}
+              variant="outline"
+              size="sm"
+            >
+              Sign Out
+            </Button>
+          </Flex>
+        </Flex>
       </Flex>
       
       <Container maxW="container.xl" py={8}>
-        <Flex justify="space-between" align="center" mb={8}>
-          <Image
-            src="/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
-          <Button
-            onClick={() => signOut({ callbackUrl: '/login' })}
-            variant="outline"
-          >
-            Sign Out
-          </Button>
-        </Flex>
-
         <Box mb={12}>
-          <Heading size="xl" mb={2}>Welcome to Dashboard</Heading>
-          <Text>Logged in as {session?.user?.email}</Text>
+          <Heading size="xl" mb={2}>Welcome, {session?.user?.name?.split(' ')[0] || 'User'}!</Heading>
+          <Text color="gray.500">Here's what's happening with your account</Text>
         </Box>
 
         <Grid templateColumns="repeat(4, 1fr)" gap={6} mb={12}>
