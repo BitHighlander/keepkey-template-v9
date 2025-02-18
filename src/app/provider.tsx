@@ -26,27 +26,27 @@ const PioneerInitializer = ({ children }: { children: React.ReactNode }) => {
   const pioneer = usePioneer();
   const [isInitialized, setIsInitialized] = React.useState(false);
 
-  React.useEffect(() => {
-    const initPioneer = async () => {
-      if (!isInitialized) {
-        try {
-          const pioneerSetup = {
-            appName: 'KeepKey Portfolio',
-            appIcon: 'https://pioneers.dev/coins/keepkey.png',
-            spec: PIONEER_URL,
-            wss: PIONEER_WSS,
-          };
-          
-          await pioneer.onStart([], pioneerSetup);
-          setIsInitialized(true);
-        } catch (e) {
-          console.error('Failed to initialize Pioneer:', e);
-        }
-      }
-    };
+  const initPioneer = async () => {
+    if (!isInitialized) {
+      try {
+        const pioneerSetup = {
+          appName: 'KeepKey Portfolio',
+          appIcon: 'https://pioneers.dev/coins/keepkey.png',
+          spec: PIONEER_URL,
+          wss: PIONEER_WSS,
+        };
 
+        await pioneer.onStart([], pioneerSetup);
+        setIsInitialized(true);
+      } catch (e) {
+        console.error('Failed to initialize Pioneer:', e);
+      }
+    }
+  };
+
+  React.useEffect(() => {
     initPioneer();
-  }, [pioneer, isInitialized]);
+  }, []);
 
   return (
     <PioneerProvider value={pioneer}>
