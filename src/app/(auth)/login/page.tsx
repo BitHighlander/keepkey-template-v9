@@ -12,18 +12,20 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { PioneerContext } from '@/common/provider'
+import { usePioneerContext } from '@/common/provider'
 import { useContext } from 'react'
 
 export default function LoginPage() {
-  const pioneerInstance = useContext(PioneerContext)
+  const pioneer = usePioneerContext()
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const router = useRouter()
 
   const onStart = async () => {
-    if (pioneerInstance?.app) {  // Only start if app is available
-      console.log('app: ', pioneerInstance.app)
+    console.log('pioneer: ',pioneer)
+    console.log('pioneer: ',pioneer.state.app)
+    if (pioneer?.state?.app) {  // Only start if app is available
+      console.log('app: ', pioneer?.state?.app)
     } else {
       console.log('no app found')
     }
@@ -31,7 +33,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     onStart();
-  }, [pioneerInstance?.app]);
+  }, [pioneer]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -76,7 +78,7 @@ export default function LoginPage() {
         boxShadow="xl"
       >
         <Stack align="center" mb={8}>
-          username: {pioneerInstance?.app}
+          username: {pioneer?.state?.app?.username}
           <Heading fontSize="3xl">Login</Heading>
         </Stack>
         <form onSubmit={handleSubmit}>
