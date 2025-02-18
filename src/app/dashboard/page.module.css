@@ -1,0 +1,204 @@
+.page {
+  --gray-rgb: 0, 0, 0;
+  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
+  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+
+  min-height: 100vh;
+  padding: 24px;
+  font-family: var(--font-geist-sans);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.signOutButton {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-alpha-200);
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.signOutButton:hover {
+  background: var(--gray-alpha-100);
+}
+
+.welcomeSection {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(to right, var(--primary-color), #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.statCard {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+}
+
+.statCard h3 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.actionsSection {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin: 32px 0;
+}
+
+.primary, .secondary {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.primary {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.primary:hover {
+  background: var(--primary-hover);
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid var(--gray-alpha-200);
+}
+
+.secondary:hover {
+  background: var(--gray-alpha-100);
+}
+
+.actionIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.footer {
+  margin-top: 64px;
+  padding: 24px 0;
+  border-top: 1px solid var(--gray-alpha-200);
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.footerLinks a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footerLinks a:hover {
+  color: var(--primary-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .page {
+    --gray-rgb: 255, 255, 255;
+    background: #111;
+  }
+
+  .statCard {
+    background: #1a1a1a;
+  }
+
+  .statCard h3 {
+    color: #999;
+  }
+
+  .subtitle, .footerContent, .footerLinks a {
+    color: #999;
+  }
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actionsSection {
+    flex-direction: column;
+  }
+
+  .footerContent {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footerLinks {
+    flex-direction: column;
+    gap: 12px;
+  }
+} 
