@@ -12,7 +12,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { PioneerContext } from '@/app/context/PioneerContext'
+import { PioneerContext } from '@/common/provider'
 import { useContext } from 'react'
 
 export default function LoginPage() {
@@ -76,6 +76,7 @@ export default function LoginPage() {
         boxShadow="xl"
       >
         <Stack align="center" mb={8}>
+          username: {pioneerInstance?.app}
           <Heading fontSize="3xl">Login</Heading>
         </Stack>
         <form onSubmit={handleSubmit}>
