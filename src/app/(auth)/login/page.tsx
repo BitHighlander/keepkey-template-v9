@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { usePioneer } from "@coinmasters/pioneer-react"
 import {
   Box,
   Button,
@@ -13,18 +12,18 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { PioneerContext } from '@/app/context/PioneerContext'
+import { useContext } from 'react'
 
 export default function LoginPage() {
-  const { state } = usePioneer();
-  const { app } = state;
+  const pioneerInstance = useContext(PioneerContext)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const router = useRouter()
 
-
   const onStart = async () => {
-    if (app) {  // Only start if not already connected
-      console.log('app: ',app)
+    if (pioneerInstance?.app) {  // Only start if app is available
+      console.log('app: ', pioneerInstance.app)
     } else {
       console.log('no app found')
     }
@@ -32,7 +31,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     onStart();
-  }, [app]);
+  }, [pioneerInstance?.app]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
