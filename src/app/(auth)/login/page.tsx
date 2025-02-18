@@ -47,17 +47,18 @@ export default function LoginPage() {
     
     try {
       const result = await signIn('credentials', {
+        username: pioneer?.state?.app?.username || '',
         password,
         redirect: false,
       })
 
       if (result?.error) {
-        setError('Invalid password')
+        setError('Invalid credentials')
       } else {
         router.push('/dashboard')
-        router.refresh()
       }
-    } catch (err) {
+    } catch (error) {
+      console.error('Login error:', error)
       setError('An error occurred during login')
     }
   }
@@ -86,35 +87,35 @@ export default function LoginPage() {
       >
         <Stack align="center" mb={8}>
           {pioneer?.state?.app?.username ? (
-              <div>
-                <Text>username: {pioneer.state.app.username}</Text>
-                <form onSubmit={handleSubmit}>
-                  <Stack gap={6}>
-                    <Heading fontSize="3xl">Login</Heading>
-                    <Input
-                        type="password"
-                        placeholder="Enter your password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        size="lg"
-                    />
-                    {error && (
-                        <Text color="red.500" textAlign="center">
-                          {error}
-                        </Text>
-                    )}
-                    <Button
-                        type="submit"
-                        colorScheme="blue"
-                        size="lg"
-                        w="full"
-                    >
-                      Sign in
-                    </Button>
-                  </Stack>
-                </form>
-              </div>
+            <div>
+              <Text>username: {pioneer.state.app.username}</Text>
+              <form onSubmit={handleSubmit}>
+                <Stack gap={6}>
+                  <Heading fontSize="3xl">Login</Heading>
+                  <Input
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    size="lg"
+                  />
+                  {error && (
+                    <Text color="red.500" textAlign="center">
+                      {error}
+                    </Text>
+                  )}
+                  <Button
+                    type="submit"
+                    colorScheme="blue"
+                    size="lg"
+                    w="full"
+                  >
+                    Sign in
+                  </Button>
+                </Stack>
+              </form>
+            </div>
           ) : (
             <Spinner size="xl" color="blue.500" />
           )}
