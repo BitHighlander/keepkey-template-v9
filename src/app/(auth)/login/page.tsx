@@ -1,4 +1,4 @@
-import { LoginPage } from '#features/auth/pages/login'
+import { LoginPage } from '#components/login'
 import { createPage } from '#lib/create-page'
 
 const { Page, metadata } = createPage({
