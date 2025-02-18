@@ -2,80 +2,91 @@
 
 import { useSession, signOut } from 'next-auth/react'
 import Image from 'next/image'
-import styles from './page.module.css'
+import { Box, Button, Container, Flex, Grid, Heading, Text, useColorModeValue } from '@chakra-ui/react'
+import { ColorModeButton } from '@/components/ui/color-mode'
 
 export default function Dashboard() {
   const { data: session } = useSession()
+  
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const textColor = useColorModeValue('gray.800', 'white')
+  const cardBg = useColorModeValue('gray.50', 'gray.700')
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div className={styles.header}>
+    <Box bg="bg.default" minH="100vh">
+      <Flex justify="flex-end" p={4}>
+        <ColorModeButton />
+      </Flex>
+      
+      <Container maxW="container.xl" py={8}>
+        <Flex justify="space-between" align="center" mb={8}>
           <Image
-            className={styles.logo}
             src="/next.svg"
             alt="Next.js logo"
             width={180}
             height={38}
             priority
           />
-          <button
+          <Button
             onClick={() => signOut({ callbackUrl: '/login' })}
-            className={styles.signOutButton}
+            colorScheme="gray"
+            variant="outline"
           >
             Sign Out
-          </button>
-        </div>
+          </Button>
+        </Flex>
 
-        <div className={styles.welcomeSection}>
-          <h1 className={styles.title}>Welcome to Dashboard</h1>
-          <p className={styles.subtitle}>Logged in as {session?.user?.email}</p>
-        </div>
+        <Box mb={12}>
+          <Heading as="h1" size="xl" mb={2}>Welcome to Dashboard</Heading>
+          <Text color="fg.muted">Logged in as {session?.user?.email}</Text>
+        </Box>
 
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <h3>Total Users</h3>
-            <p className={styles.statNumber}>1,234</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>Active Sessions</h3>
-            <p className={styles.statNumber}>56</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>Total Revenue</h3>
-            <p className={styles.statNumber}>$45,678</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>Growth</h3>
-            <p className={styles.statNumber}>+12.3%</p>
-          </div>
-        </div>
+        <Grid templateColumns="repeat(4, 1fr)" gap={6} mb={12}>
+          <Box p={6} bg="bg.subtle" borderRadius="lg">
+            <Text color="fg.muted" mb={2}>Total Users</Text>
+            <Heading size="lg">1,234</Heading>
+          </Box>
+          <Box p={6} bg="bg.subtle" borderRadius="lg">
+            <Text color="fg.muted" mb={2}>Active Sessions</Text>
+            <Heading size="lg">56</Heading>
+          </Box>
+          <Box p={6} bg="bg.subtle" borderRadius="lg">
+            <Text color="fg.muted" mb={2}>Total Revenue</Text>
+            <Heading size="lg">$45,678</Heading>
+          </Box>
+          <Box p={6} bg="bg.subtle" borderRadius="lg">
+            <Text color="fg.muted" mb={2}>Growth</Text>
+            <Heading size="lg">+12.3%</Heading>
+          </Box>
+        </Grid>
 
-        <div className={styles.actionsSection}>
-          <button className={styles.primary}>
+        <Flex gap={4} mb={12}>
+          <Button colorScheme="blue" leftIcon={
             <Image
               src="/globe.svg"
               alt="Action icon"
               width={20}
               height={20}
-              className={styles.actionIcon}
             />
+          }>
             New Project
-          </button>
-          <button className={styles.secondary}>View Reports</button>
-        </div>
-      </main>
+          </Button>
+          <Button variant="outline">View Reports</Button>
+        </Flex>
+      </Container>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p>© 2024 Your Company. All rights reserved.</p>
-          <div className={styles.footerLinks}>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Contact Support</a>
-          </div>
-        </div>
-      </footer>
-    </div>
+      <Box as="footer" bg="bg.subtle" py={6}>
+        <Container maxW="container.xl">
+          <Flex justify="space-between" align="center">
+            <Text color="fg.muted">© 2024 Your Company. All rights reserved.</Text>
+            <Flex gap={6}>
+              <Button variant="link" color="fg.muted">Privacy Policy</Button>
+              <Button variant="link" color="fg.muted">Terms of Service</Button>
+              <Button variant="link" color="fg.muted">Contact Support</Button>
+            </Flex>
+          </Flex>
+        </Container>
+      </Box>
+    </Box>
   )
 } 

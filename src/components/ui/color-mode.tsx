@@ -1,10 +1,11 @@
 "use client"
 
-import type { IconButtonProps, SpanProps } from "@chakra-ui/react"
-import { ClientOnly, IconButton, Skeleton, Span } from "@chakra-ui/react"
+import { IconButton, type IconButtonProps } from "@chakra-ui/react"
+import { ClientOnly, Skeleton, Span } from "@chakra-ui/react"
 import { ThemeProvider, useTheme } from "next-themes"
 import type { ThemeProviderProps } from "next-themes"
 import * as React from "react"
+import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { LuMoon, LuSun } from "react-icons/lu"
 
 export interface ColorModeProviderProps extends ThemeProviderProps {}
@@ -29,7 +30,7 @@ export function useColorMode(): UseColorModeReturn {
     setTheme(resolvedTheme === "dark" ? "light" : "dark")
   }
   return {
-    colorMode: resolvedTheme as ColorMode,
+    colorMode: (resolvedTheme as ColorMode) || 'dark',
     setColorMode: setTheme,
     toggleColorMode,
   }
@@ -47,32 +48,24 @@ export function ColorModeIcon() {
 
 interface ColorModeButtonProps extends Omit<IconButtonProps, "aria-label"> {}
 
-export const ColorModeButton = React.forwardRef<
-  HTMLButtonElement,
-  ColorModeButtonProps
->(function ColorModeButton(props, ref) {
-  const { toggleColorMode } = useColorMode()
-  return (
-    <ClientOnly fallback={<Skeleton boxSize="8" />}>
-      <IconButton
-        onClick={toggleColorMode}
-        variant="ghost"
-        aria-label="Toggle color mode"
-        size="sm"
-        ref={ref}
-        {...props}
-        css={{
-          _icon: {
-            width: "5",
-            height: "5",
-          },
-        }}
-      >
-        <ColorModeIcon />
-      </IconButton>
-    </ClientOnly>
-  )
-})
+export const ColorModeButton = React.forwardRef<HTMLButtonElement, ColorModeButtonProps>(
+  function ColorModeButton(props, ref) {
+    const { toggleColorMode, colorMode } = useColorMode()
+    return (
+      <ClientOnly fallback={<Skeleton boxSize="8" />}>
+        <IconButton
+          onClick={toggleColorMode}
+          variant="ghost"
+          aria-label="Toggle color mode"
+          _icon={{ width: "5", height: "5" }}
+          icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
+          ref={ref}
+          {...props}
+        />
+      </ClientOnly>
+    )
+  }
+)
 
 export const LightMode = React.forwardRef<HTMLSpanElement, SpanProps>(
   function LightMode(props, ref) {

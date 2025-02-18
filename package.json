@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/cli": "^3.8.0",
+    "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^3.8.0",
     "@coinmasters/pioneer-react": "^0.8.32",
     "@emotion/react": "^11.14.0",

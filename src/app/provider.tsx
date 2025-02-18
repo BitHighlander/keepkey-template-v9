@@ -1,25 +1,29 @@
 'use client'
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { PioneerProvider } from "@coinmasters/pioneer-react"
 import { ChakraProvider, createSystem } from '@chakra-ui/react';
 import { SessionProvider } from 'next-auth/react';
+import { ColorModeProvider } from '@/components/ui/color-mode';
 
 // //@ts-ignore
 // import { defaultConfig } from '@saas-ui-pro/react';
 
+const system = createSystem({
+  cssVarsRoot: 'body',
+  colorMode: 'dark',
+})
+
 interface ProviderProps {
   children: React.ReactNode;
-  initialColorMode?: 'light' | 'dark';
 }
 
-export function Provider({ children, initialColorMode = 'dark' }: ProviderProps) {
-  const system = useMemo(() => createSystem({}), []);
+export function Provider({ children }: ProviderProps) {
   return (
     <SessionProvider>
       <PioneerProvider>
         <ChakraProvider value={system}>
-          {children}
+          <ColorModeProvider>{children}</ColorModeProvider>
         </ChakraProvider>
       </PioneerProvider>
     </SessionProvider>
